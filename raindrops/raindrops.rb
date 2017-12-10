@@ -10,7 +10,7 @@ SOUNDS = {
 
 class Raindrops
   def self.convert(number)
-    sound = SOUNDS.select {|factor| (number % factor).zero? }.values
+    sound = SOUNDS.select {|factor, _| (number % factor).zero? }.values
     sound.empty? ? number.to_s : sound.join
   end
 end
