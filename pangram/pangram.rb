@@ -4,9 +4,9 @@ end
 
 # pangram (Greek: παν γράμμα, pan gramma, "every letter") is a sentence using every letter of the alphabet at least once
 
+
 class Pangram
-  REQUIRED = [*('a'..'z')]
-  def self.pangram? (phrase)
-    REQUIRED.all? {|char| phrase.downcase.chars.include? char}
+  def self.pangram?(phrase)
+    ('a'..'z').all?(&phrase.downcase.method(:include?))
   end
 end
