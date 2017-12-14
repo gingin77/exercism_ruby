@@ -4,7 +4,7 @@ require_relative 'sieve'
 # Common test data version: 1.0.0 f2b2693
 class SieveTest < Minitest::Test
   def test_no_primes_under_two
-    skip
+    # skip
     expected = []
     assert_equal expected, Sieve.new(1).primes
   end
