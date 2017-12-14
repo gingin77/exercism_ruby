@@ -11,18 +11,15 @@ class Sieve
   end
 
   def sieve()
+    unless @modulo_num.nil?
+      @expected = @expected.push(@modulo_num)
+    end
     @multiples = @range.select { |n| n % @modulo_num == 0 }
     @range = @range - @multiples
     @modulo_num = @range[0]
-    unless @modulo_num.nil?
-      @expected = @expected.push(@modulo_num)
-    end
   end
 
   def primes
-    unless @modulo_num.nil?
-      @expected = @expected.push(@modulo_num)
-    end
     while !@range.empty? do
       sieve()
     end
