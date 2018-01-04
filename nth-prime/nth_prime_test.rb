@@ -29,6 +29,7 @@ class NthPrimeTest < Minitest::Test
   end
 
   def test_cap_limit
+    # skip
     assert_equal 292679, Prime.nth(25438)
   end
 
@@ -38,12 +39,12 @@ class NthPrimeTest < Minitest::Test
   end
 
   def test_there_is_no_zeroth_prime
-    skip
+    # skip
     assert_raises(ArgumentError) { Prime.nth(0) }
   end
 
   def test_bookkeeping
-    skip
+    # skip
     assert_equal 1, BookKeeping::VERSION
   end
 end
