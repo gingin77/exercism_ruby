@@ -13,38 +13,26 @@ class Scale
   end
 
   def name
-    @tonic.upcase + " " + @scale.to_s
+    @tonic.capitalize + " " + @scale.to_s
   end
 
   def pitches
-    @notes = choose_notes
-    @tonic = modify_tonic
-    index_pos = @notes.index(@tonic)
+    notes = choose_notes
+    notes = notes.rotate(notes.index(@tonic.capitalize))
 
     result = []
-    result << @notes[index_pos]
-
-    previous_index_pos = index_pos
+    result << notes[0]
+    index_pos = 0
 
     @interval.chars[0..-2].each do |c|
       if c == "m"
-        step = 1
         index_pos += 1
       elsif c == "M"
-        step = 2
         index_pos += 2
       else
-        step = 3
         index_pos += 3
       end
-
-      if @notes[index_pos] != nil
-        result << @notes[index_pos]
-      else
-        index_pos = (previous_index_pos + step) - (@notes.size)
-        result << @notes[index_pos]
-      end
-      previous_index_pos = index_pos
+      result << notes[index_pos]
     end
     result
   end
@@ -62,14 +50,6 @@ class Scale
       NOTES_SHARP
     elsif [:mixolydian, :locrian, :harmonic_minor, :hexatonic].include? @scale
       NOTES_FLAT
-    end
-  end
-
-  def modify_tonic
-    if @tonic.chars.size == 1
-      @tonic.chars[0].upcase
-    else
-      @tonic.chars[0].upcase + @tonic.chars[1]
     end
   end
 end
