@@ -20,35 +20,30 @@ class Scale
     notes = choose_notes
     notes = notes.rotate(notes.index(@tonic.capitalize))
 
-    result = []
-    result << notes[0]
-    index_pos = 0
-
-    @interval.chars[0..-2].each do |c|
-      if c == "m"
-        index_pos += 1
-      elsif c == "M"
-        index_pos += 2
-      else
-        index_pos += 3
+    [].tap do |pitches|
+      index_pos = 0
+      pitches << notes[0]
+      @interval.chars[0..-2].each do |c|
+        if c == "m"
+          index_pos += 1
+        elsif c == "M"
+          index_pos += 2
+        else
+          index_pos += 3
+        end
+        pitches << notes[index_pos]
       end
-      result << notes[index_pos]
     end
-    result
   end
 
   private
 
   def choose_notes
     if [:chromatic, :minor, :major].include? @scale
-      if %w(G D A E B F# C e b f# c# g# d#).include? @tonic
-        NOTES_SHARP
-      elsif %w(F Bb Eb Ab Db Gb a d g c f bb eb).include? @tonic
-        NOTES_FLAT
-      end
+      (%w(G D A E B F# C e b f# c# g# d#).include? @tonic) ? NOTES_SHARP : NOTES_FLAT
     elsif [:dorian, :lydian, :phrygian, :octatonic, :pentatonic, :enigma,].include? @scale
       NOTES_SHARP
-    elsif [:mixolydian, :locrian, :harmonic_minor, :hexatonic].include? @scale
+    else
       NOTES_FLAT
     end
   end
