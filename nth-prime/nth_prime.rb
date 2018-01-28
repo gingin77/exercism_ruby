@@ -30,5 +30,18 @@ class Prime
     end
   end
 
+
+  def self.is_prime?(candidate)
+    sqrt = Math.sqrt(candidate)
+    @primes.all? do |divisor|
+      return true if divisor > sqrt
+      candidate % divisor != 0
+    end
+    # @primes
+    #   .lazy
+    #   .take_while { |prime| prime <= sqrt }
+    #   .all? { |prime| candidate % prime != 0 }
+  end
+
   private_class_method :is_prime?, :more_primes
 end
